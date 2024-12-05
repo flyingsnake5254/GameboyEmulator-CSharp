@@ -65,14 +65,31 @@ public class Program
 
                 vBox.PackStart(drawingArea, true, true, 0);
                 drawingArea.Show();
-            }
 
-            fileChooser.Destroy();
+                fileChooser.Destroy();
+                Emulator emulator = new Emulator();
+            }
+            else
+            {
+                fileChooser.Destroy();
+            }
+            
         };
 
         fileMenuItemSub.Append(openFileMenuItem);
 
-        // 選項二：遊戲速度
+        /*
+            選項二：
+                遊戲速度
+                    |_ 0.25
+                    |_ 0.5
+                    |_ 0.75
+                    |_ 1.0 (default)
+                    |_ 1.25
+                    |_ 1.5
+                    |_ 1.75
+                    |_ 2.0
+        */
         MenuItem speedMenuItem = new MenuItem("遊戲速度");
         Menu speedMenuItemSub = new Menu();
         speedMenuItem.Submenu = speedMenuItemSub;

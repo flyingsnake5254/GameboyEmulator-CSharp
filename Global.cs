@@ -1,3 +1,9 @@
+/*
+    Data Type
+*/
+global using u8 = System.Byte;
+global using u16 = System.UInt16;
+
 public class Global
 {
     /*
@@ -12,4 +18,8 @@ public class Global
         Gameboy Settings
     */
     public static double GAME_SPEED = 1.0; // 遊戲速度
+
+    
+    
+
 }
