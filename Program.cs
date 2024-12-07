@@ -18,6 +18,9 @@ public class Program
         window.DeleteEvent += (o, e) => Application.Quit();
         window.SetPosition(WindowPosition.Center);
 
+        // 鍵盤
+        Keyboard keyboard = new Keyboard();
+
         // 垂直容器
         VBox vBox = new VBox(false, 2);
 
@@ -54,6 +57,11 @@ public class Program
             // 選擇完檔案
             if (fileChooser.Run() == (int) ResponseType.Accept)
             {
+                if (vBox.Children.Length > 1) // 假設只有一個 MenuBar，其他是 DrawingArea
+                {
+                    vBox.Remove(vBox.Children[1]); // 移除舊的遊戲畫布
+                }
+
                 // 建立遊戲區塊
                 DrawingArea drawingArea = new DrawingArea();
                 drawingArea.SetSizeRequest(Global.SCREEN_WIDTH * Global.SCREEN_SCALE, Global.SCREEN_HEIGHT * Global.SCREEN_SCALE);
@@ -62,12 +70,21 @@ public class Program
                 drawingArea.GrabFocus();
 
                 // 綁定 Keyboard 事件
+                drawingArea.KeyPressEvent += (o, args) =>
+                {
+                    keyboard.HandleKeyDown((Gdk.EventKey)args.Event);
+                };
+
+                drawingArea.KeyReleaseEvent += (o, args) =>
+                {
+                    keyboard.HandleKeyUp((Gdk.EventKey)args.Event);
+                };
 
                 vBox.PackStart(drawingArea, true, true, 0);
                 drawingArea.Show();
-
+                string gbFileName = fileChooser.Filename;
                 fileChooser.Destroy();
-                Emulator emulator = new Emulator();
+                Emulator emulator = new Emulator(gbFileName, drawingArea, keyboard);
             }
             else
             {
@@ -115,6 +132,17 @@ public class Program
 
         // 添加到 window
         window.Add(vBox);
+
+        // 確保窗口本身可以接受焦點
+        window.KeyPressEvent += (o, args) =>
+        {
+            keyboard.HandleKeyDown((Gdk.EventKey)args.Event);
+        };
+
+        window.KeyReleaseEvent += (o, args) =>
+        {
+            keyboard.HandleKeyUp((Gdk.EventKey)args.Event);
+        };
 
         window.ShowAll();
         Application.Run();

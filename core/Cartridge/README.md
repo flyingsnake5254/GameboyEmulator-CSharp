@@ -3,8 +3,8 @@
 |---|---|---|
 | 0x0000 - 0x3FFF | 固定 ROM ( Bank 0 ) |
 | 0x4000 - 0x7FFF | 可切換 ROM ( Bank 1 - n ) |
-| 0x8000 - 0x9FFF | VRAM |
-| 0xA000 - 0xBFFF | ERAM |
+| 0x8000 - 0x9FFF | VRAM | 讀寫條件：<br> 1. 當 LCD 禁用 `(LCDC Bit 7 = 0)` <br>VRAM **允許讀寫**<br>2. 當 LCD 啟用 `(LCDC Bit 7 = 1)` 且 STAT 寄存器的 Bit 1-0 == `01` 則 VRAM 可以讀寫
+| 0xA000 - 0xBFFF | ERAM | **啟用**：向 0x0000 - 0x1FFF 範圍寫入 `0x0A`<br> **禁用** : 向 0x0000 - 0x1FFF 範圍寫入 0x0A 之外的任意值  |
 | 0xC000 - 0xDFFF | WRAM | 無限制 |
 | 0xE000 - 0xFDFF | Echo RAM | 任天堂說**禁用**此區段 |
 | 0xFE00 - 0xFE9F | OAM |
@@ -38,7 +38,7 @@
 
   | 6 | 5 | 4 | 3 | 2 | 1 - 0 |
   |---|---|---|---|---|---|
-  |`1: 啟用 LYC=LY 中斷`<br>
+  |`1: 啟用 LYC=LY 中斷`<br>`0:禁用`|`1: 啟用 OAM 搜索模式的中斷`<br>`0: 禁用`|`1: 啟用 VBlank 模式的中斷`<br>`0: 禁用`|`1: 啟用 HBlank 模式的中斷`<br>`0: 禁用`|`1: LYC == LY` <br>`LYC != LY`|當前 LCD 模式 (Mode Flag)<br>`00`: HBlank<br>`01`: VBlank<br>`10`: OAM 搜索<br>`11`: 資料傳輸到 LCD
 ---
 
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GameboyEmulator-CSharp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f461724f476a741431bb5d2a497db5aec71b6542")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+447eff015bc245adcc2bd432440c6fd65c96be19")]
 [assembly: System.Reflection.AssemblyProductAttribute("GameboyEmulator-CSharp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GameboyEmulator-CSharp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
